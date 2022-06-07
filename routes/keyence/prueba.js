@@ -9,12 +9,12 @@ module.exports = {
     prueba: async (req, res) => {
         let response = {
             replyCode: 200,
-            replyText: "Documento cargado",
+            replyText: "App corriendo",
             data: []
         }
 
         response.replyCode = 200;
-        response.replyText = 'Documento cargado con exito';
+        response.replyText = 'Aplicación corriendo';
         response.data = [];
         res.status(200).send(response);
     }  
