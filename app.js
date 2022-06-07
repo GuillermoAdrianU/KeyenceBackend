@@ -26,6 +26,6 @@ app.use(mongoSanitize())
 // })
 
 app.use('/keyence', keyence);
-app.use('/',)
+app.use('/', prueba)
 
 module.exports = app;
