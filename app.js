@@ -26,8 +26,4 @@ app.use(mongoSanitize())
 
 app.use('/keyence', keyence);
 
-router.get('/', (req, res) => {
-    res.send("Funciona")
-})
-
 module.exports = app;
