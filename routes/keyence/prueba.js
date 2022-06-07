@@ -2,10 +2,8 @@
 /**
 * @author Guillermo Adrian Urbina Aguiñiga
 * @date 06/Junio/2022
-* @description Script de prueba.
+* @description Script para cargar archivos Excel.
 */
-
-
 
 module.exports = {
     prueba: async (req, res) => {
@@ -19,5 +17,5 @@ module.exports = {
         response.replyText = 'Documento cargado con exito';
         response.data = [];
         res.status(200).send(response);
-    }
-} 
+    }  
+}
