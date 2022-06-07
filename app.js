@@ -23,6 +23,11 @@ app.use(mongoSanitize())
 // app.use((req, res, next) => {
 //     res.header('mrp-app-header', 'hfey20euf248yf294u2efhjo2hfoewwfph3120r492h43298htg4g8')
 // })
+
 app.use('/keyence', keyence);
+
+router.get('/', (req, res) => {
+    res.send("Funciona")
+})
 
 module.exports = app;
