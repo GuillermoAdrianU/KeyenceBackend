@@ -9,6 +9,7 @@ var proxy = require('express-http-proxy');
 
 //Rutas 
 var keyence = require('./routes/keyence/keyence')
+var prueba = require('./routes/prueba')
 
 //Uso de rutas
 var app = express();
@@ -25,5 +26,6 @@ app.use(mongoSanitize())
 // })
 
 app.use('/keyence', keyence);
+app.use('/',)
 
 module.exports = app;
