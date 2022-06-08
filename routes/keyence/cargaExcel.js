@@ -12,7 +12,6 @@ require('datejs')
 
 var mongoose = require('mongoose');
 var url = 'mongodb+srv://guilleaua:FjLFulM5SfPZQVSE@cluster0.62tyk.mongodb.net/?retryWrites=true&w=majority';
-var modelo = require('../../schemas/schemas')
 
 function ExcelAJSON(archivo) {
     let fecha = Date.now();
@@ -57,7 +56,7 @@ module.exports = {
                 archivo: archivoFinal
             }
 
-            mongoose.connect(url, function(err, db) {
+            mongoose.connect(url, async function(err, db) {
                 if(err) {
                     response.replyCode = 500;
                     response.replyText = 'Error en la conexión a mongo';
@@ -65,6 +64,9 @@ module.exports = {
                     res.status(500).send(response);
                 } else {
                     db.collection('documentos').insertOne({body});
+                    for(const user of archivoFinal) {
+                        await db.collection('usuarios').insertOne({user})
+                    }
                     response.replyCode = 200;
                     response.replyText = 'Documento cargado con exito';
                     response.data = [];
@@ -105,21 +107,5 @@ module.exports = {
             response.data = [];
             res.status(200).send(response);
         }
-    },
-
-    updateArchivo: async (req, res) => {
-        let response = {
-            replyCode: 200,
-            replyText: "Documento cargado",
-            data: []
-        }
-    },
-
-    readArchivo: async (req, res) => {
-        let response = {
-            replyCode: 200,
-            replyText: "Documento cargado",
-            data: []
-        }
-    },
+    }
 } 

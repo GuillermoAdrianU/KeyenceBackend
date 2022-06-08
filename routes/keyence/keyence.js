@@ -10,17 +10,17 @@ router.use(fileUpload({
 
 //Constantes de metodos
 const { prueba } = require('./prueba')
-const { createArchivo, deleteArchivo, updateArchivo, readArchivo } = require('./cargaExcel')
+const { createArchivo, deleteArchivo } = require('./cargaExcel')
 const { recuperaArchivos, recuperaArchivoDetalle } = require('./recuperaArchivos')
+const { recuperaUsuarios, recuperaUsuarioDetalle } = require('./recuperaUsuarios')
 
 //Metodos
 router.get('/', prueba)
 router.get('/recuperaArchivos', recuperaArchivos)
 router.get('/recuperaArchivoDetalle/:id', recuperaArchivoDetalle)
+router.get('/recuperaUsuarios', recuperaUsuarios)
+router.get('/recuperaUsuarioDetallee', recuperaUsuarioDetalle)
 router.post('/createArchivo', createArchivo)
 router.post('/deleteArchivo', deleteArchivo)
-router.post('/updateArchivo', updateArchivo)
-router.post('/readArchivo', readArchivo)
-
 
 module.exports = router;

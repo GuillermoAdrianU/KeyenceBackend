@@ -58,7 +58,7 @@ module.exports = {
                     response.data = undefined;
                     res.status(500).send(response);
                 } else {
-                    let documentos = await archivoModel.modelo.archivoModelo.find({"body.id": id},{"_id": 0});
+                    let documentos = await archivoModel.modelo.archivoModelo.find({"body.id": id});
                     response.replyCode = 200;
                     response.replyText = 'Documentos recuperados con exito';
                     response.data = [documentos];
