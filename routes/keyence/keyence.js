@@ -22,6 +22,6 @@ router.get('/recuperaUsuarios', recuperaUsuarios)
 router.post('/actualizaUsuarios', actualizaUsuarios)
 router.post('/createArchivo', createArchivo)
 router.post('/deleteArchivo', deleteArchivo)
-router.post('/eliminaUsuario/:id', eliminaUsuarios)
+router.post('/eliminaUsuario', eliminaUsuarios)
 
 module.exports = router;

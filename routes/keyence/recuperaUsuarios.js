@@ -43,22 +43,29 @@ module.exports = {
             data: []
         }
 
-        let id = req.params.id
+        let id = req.body.id
 
-        mongoose.connect(url, async function(err, db) {
-            if(err) {
-                response.replyCode = 500;
-                response.replyText = 'Error en la conexión a mongo';
-                response.data = undefined;
-                res.status(500).send(response);
-            } else {
-                let usuarios = await usuarioModel.modelo.usuarioModelo.remove({"_id": id});
-                response.replyCode = 200;
-                response.replyText = 'Usuarios eliminados';
-                response.data = [usuarios];
-                res.status(200).send(response);
-            }
-        })
+        if(!f.definido(id)) {
+            mongoose.connect(url, async function(err, db) {
+                if(err) {
+                    response.replyCode = 500;
+                    response.replyText = 'Error en la conexión a mongo';
+                    response.data = undefined;
+                    res.status(500).send(response);
+                } else {
+                    let usuarios = await usuarioModel.modelo.usuarioModelo.remove({"_id": id});
+                    response.replyCode = 200;
+                    response.replyText = 'Usuarios eliminados';
+                    response.data = [usuarios];
+                    res.status(200).send(response);
+                }
+            })
+        } else {
+            response.replyCode = 500;
+            response.replyText = 'Error en la conexión a mongo';
+            response.data = undefined;
+            res.status(500).send(response);
+        }
     },
 
     actualizaUsuarios: async (req, res) => {
