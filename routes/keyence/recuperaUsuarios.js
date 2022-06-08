@@ -44,8 +44,14 @@ module.exports = {
         }
 
         let id = req.body.id.toString()
+        console.log(id)
 
         if(!f.definido(id)) {
+            response.replyCode = 500;
+            response.replyText = 'Error en la petición de datos';
+            response.data = undefined;
+            res.status(500).send(response);
+        } else {
             mongoose.connect(url, async function(err, db) {
                 if(err) {
                     response.replyCode = 500;
@@ -53,18 +59,13 @@ module.exports = {
                     response.data = undefined;
                     res.status(500).send(response);
                 } else {
-                    let usuarios = await usuarioModel.modelo.usuarioModelo.remove({"_id": id});
+                    let usuarios = await usuarioModel.modelo.usuarioModelo.deleteOne({"_id": id});
                     response.replyCode = 200;
                     response.replyText = 'Usuarios eliminados';
                     response.data = [usuarios];
                     res.status(200).send(response);
                 }
             })
-        } else {
-            response.replyCode = 500;
-            response.replyText = 'Error en la conexión a mongo';
-            response.data = undefined;
-            res.status(500).send(response);
         }
     },
 
