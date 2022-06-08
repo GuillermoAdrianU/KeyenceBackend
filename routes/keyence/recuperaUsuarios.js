@@ -43,7 +43,7 @@ module.exports = {
             data: []
         }
 
-        let id = req.body.id
+        let id = req.body.id.toString()
 
         if(!f.definido(id)) {
             mongoose.connect(url, async function(err, db) {
