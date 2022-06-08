@@ -12,18 +12,7 @@ require('datejs')
 
 var mongoose = require('mongoose');
 var url = 'mongodb+srv://guilleaua:FjLFulM5SfPZQVSE@cluster0.62tyk.mongodb.net/?retryWrites=true&w=majority';
-
-var schemas = new mongoose.Schema({
-    archivo: {
-        id: { type: Number },
-        fechaCreacion: { type: String },
-        archivo: { type: Array }
-    }
-})
-
-const modelo = {
-    examen: mongoose.model('schemas', schemas ,'documentos')
-}
+var modelo = require('../../schemas/schemas')
 
 function ExcelAJSON(archivo) {
     let fecha = Date.now();

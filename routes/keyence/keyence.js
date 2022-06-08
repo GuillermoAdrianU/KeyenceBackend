@@ -16,7 +16,7 @@ const { recuperaArchivos, recuperaArchivoDetalle } = require('./recuperaArchivos
 //Metodos
 router.get('/', prueba)
 router.get('/recuperaArchivos', recuperaArchivos)
-router.get('/recuperaArchivoDetalle', recuperaArchivoDetalle)
+router.get('/recuperaArchivoDetalle/:id', recuperaArchivoDetalle)
 router.post('/createArchivo', createArchivo)
 router.post('/deleteArchivo', deleteArchivo)
 router.post('/updateArchivo', updateArchivo)
