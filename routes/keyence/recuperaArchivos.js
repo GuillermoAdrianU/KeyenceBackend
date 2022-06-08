@@ -1,12 +1,10 @@
 
 /**
 * @author Guillermo Adrian Urbina Aguiñiga
-* @date 06/Junio/2022
+* @date 07/Junio/2022
 * @description Script para cargar archivos Excel.
 */
 
-var xlsx = require("xlsx");
-var fs = require('fs')
 var f = require('../../funciones');
 require('datejs')
 
@@ -25,49 +23,19 @@ const modelo = {
     examen: mongoose.model('schemas', schemas ,'documentos')
 }
 
-function ExcelAJSON(archivo) {
-    let fecha = Date.now();
-    fs.writeFileSync(`./files/archivo${fecha}.xlsx`, archivo.data)
-    return new Promise((resolve) => {
-        const excel = xlsx.readFile(`./files/archivo${fecha}.xlsx`);
-        fs.unlinkSync(`./files/archivo${fecha}.xlsx`)
-        var nombreHoja = excel.SheetNames;
-        let datos = xlsx.utils.sheet_to_json(excel.Sheets[nombreHoja[0]]);
-        const jDatos = [];
-        for (let i = 0; i < datos.length; i++) {
-          const dato = datos[i];
-          jDatos.push({
-            ...dato,
-          });
-        }
-        resolve(jDatos)
-    })
-}
-
 module.exports = {
-    createArchivo: async (req, res) => {
+    recuperaArchivos: async (req, res) => {
         let response = {
             replyCode: 200,
-            replyText: "Documento cargado",
+            replyText: "Archivos recuperados",
             data: []
         }
-
-        let archivo = req.files.archivo
-
         if(!f.definido(archivo)) {
             response.replyCode = 500;
             response.replyText = 'Error en la solicitud de datos';
             response.data = undefined;
             res.status(500).send(response);
         } else {
-            let archivoFinal = await ExcelAJSON(archivo);
-
-            let body = {
-                id: parseInt(Date.now()),
-                fechaCreacion: Date.today().toString('yyyy-MM-dd'),
-                archivo: archivoFinal
-            }
-
             mongoose.connect(url, function(err, db) {
                 if(err) {
                     response.replyCode = 500;
@@ -75,20 +43,21 @@ module.exports = {
                     response.data = undefined;
                     res.status(500).send(response);
                 } else {
-                    db.collection('documentos').insertOne({body});
+                    let documentos = db.collection('documentos').find({});
                     response.replyCode = 200;
                     response.replyText = 'Documento cargado con exito';
-                    response.data = [];
+                    response.data = [documentos];
                     res.status(200).send(response);
                 }
             })
+
         }  
     },
 
-    deleteArchivo: async (req, res) => {
+    recuperaArchivoDetalle: async (req, res) => {
         let response = {
             replyCode: 200,
-            replyText: "Documento cargado",
+            replyText: "Archivo recuperado",
             data: []
         }
 
@@ -116,21 +85,5 @@ module.exports = {
             response.data = [];
             res.status(200).send(response);
         }
-    },
-
-    updateArchivo: async (req, res) => {
-        let response = {
-            replyCode: 200,
-            replyText: "Documento cargado",
-            data: []
-        }
-    },
-
-    readArchivo: async (req, res) => {
-        let response = {
-            replyCode: 200,
-            replyText: "Documento cargado",
-            data: []
-        }
-    },
+    }
 } 
