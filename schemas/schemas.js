@@ -5,11 +5,13 @@ var schemas = new mongoose.Schema({
 })
 
 var usuarios = new mongoose.Schema({
-    "User ID": { type: String },
-    "User Name": { type: String },
-    "Date": { type: String },
-    "Punch In": { type: String },
-    "Punch Out": { type: String }
+    "user": {
+        "User ID": { type: String },
+        "User Name": { type: String },
+        "Date": { type: Number },
+        "Punch In": { type: Number },
+        "Punch Out": { type: Number }
+    }
 })
 
 const modelo = {

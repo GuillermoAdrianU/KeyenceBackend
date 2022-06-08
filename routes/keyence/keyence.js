@@ -12,15 +12,16 @@ router.use(fileUpload({
 const { prueba } = require('./prueba')
 const { createArchivo, deleteArchivo } = require('./cargaExcel')
 const { recuperaArchivos, recuperaArchivoDetalle } = require('./recuperaArchivos')
-const { recuperaUsuarios, recuperaUsuarioDetalle } = require('./recuperaUsuarios')
+const { recuperaUsuarios, actualizaUsuarios, eliminaUsuarios } = require('./recuperaUsuarios')
 
 //Metodos
 router.get('/', prueba)
 router.get('/recuperaArchivos', recuperaArchivos)
 router.get('/recuperaArchivoDetalle/:id', recuperaArchivoDetalle)
 router.get('/recuperaUsuarios', recuperaUsuarios)
-router.get('/recuperaUsuarioDetallee', recuperaUsuarioDetalle)
+router.post('/actualizaUsuarios', actualizaUsuarios)
 router.post('/createArchivo', createArchivo)
 router.post('/deleteArchivo', deleteArchivo)
+router.post('/eliminaUsuario/:id', eliminaUsuarios)
 
 module.exports = router;
